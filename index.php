@@ -18,12 +18,13 @@ include_once 'base.php';
     <h1 class="big-title centered"><?php echo $name ?></h1>
 
     <div class="container">
-      <h3>Welcome on this website, have fun and most of all, good luck!</h3>
-      <br><br>
-      <div class="formulaire">
-        <div class="center">
+      <h3 class="centered">Welcome on this website, have fun and most of all, good luck!</h3>
+      <br>
+      <div class="jumbotron row centered shadow rounded">
+        <div class="col">
           <a class="bouton" href="blackjack.php">Play Blackjack</a>
-          <br><br><br>
+        </div>
+        <div class="col">
           <a class="bouton" href="poker.php">Play Poker</a>
         </div>
       </div>

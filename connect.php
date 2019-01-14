@@ -51,27 +51,27 @@ if (isset($_POST['log']) && $_POST['log'] == 'Log in'){
     <!-- title -->
     <h1 class="big-title centered"><?php echo $name ?></h1>
 
-		<div class="formulaire">
-		<form action="connect.php" method="post">
-		<div class="center">
-			<span class="label">Login</span>
-	 		<input class="champ" type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"/><br>
-	 		<br>
-			<span class="label">Password </span>
-			<input class="champ" type="password" name="pass" value="<?php if (isset($_POST['pass'])) echo htmlentities(trim($_POST['pass']))?>"/><br>
-			<br><br>
-			<?php
-			if (isset($log))
-				echo '<div class="message">' . $log . '</div><br><br>';
-			?>
-			<input class="bouton" type="submit" name="log" value="Log in" />
-			<input class="bouton" type="submit" name="register" value="Not registered ?" />
-			<input class="bouton" type="submit" name="password" value="Forgot password ?" />
-			<br><br>
-			<input class="bouton" type="submit" name="home" value="Home" />
+    <div class="formulaire">
+    	<div class="jumbotron row centered shadow rounded">
+			<form action="connect.php" method="post">
+				<span class="label"> Login     </span>
+	 			<input class="champ" type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"/><br><br>
+				<span class="label">Password </span>
+				<input class="champ" type="password" name="pass" value="<?php if (isset($_POST['pass'])) echo htmlentities(trim($_POST['pass']))?>"/><br><br>
+				<br>
+				<?php
+				if (isset($log))
+					echo '<div class="message">' . $log . '</div><br><br>';
+				?>
+				<input class="bouton" type="submit" name="log" value="Log in" />
+				<br>
+				<input class="bouton" type="submit" name="register" value="Not registered ?" />
+				<input class="bouton" type="submit" name="password" value="Forgot password ?" />
+				<br><br>
+				<input class="bouton" type="submit" name="home" value="Home" />
+			</form>
 		</div>
-		</form>
-		</div>
-		<script type="text/javascript" src="js/jquery.min.js"></script>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
 	</body>
 </html>

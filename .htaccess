@@ -1,5 +1,0 @@
-#SSLRequireSSL
-AuthType CAS
-AuthName "Accès protégé"
-require user dvoets 
-

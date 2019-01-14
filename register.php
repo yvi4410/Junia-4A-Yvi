@@ -70,28 +70,28 @@ if (isset($_POST['register']) && $_POST['register'] == 'Register'){
     <h1 class="big-title centered"><?php echo $name ?></h1>
 
 		<div class="formulaire">
-		<form action="register.php" method="post">
-	 	<div class="center">
-	 		<span class="label">Login</span>
-	 		<input class="champ" type="text" name="login" maxlength="20" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"/><br>
-	 		<br>
-			<span class="label">Password</span>
-			<input class="champ" type="password" name="password" maxlength="20" value="<?php if (isset($_POST['password'])) echo htmlentities(trim($_POST['password']))?>"/><br>
-			<br>
-			<span class="label">Password (bis)</span>
-			<input class="champ" type="password" name="password_c" maxlength="20" value="<?php if (isset($_POST['password_c'])) echo htmlentities(trim($_POST['password_c']))?>"/><br><br>
-			<span class="label">Mail</span>
-			<input class="champ" type="text" name="mail" maxlength="50" value="<?php if (isset($_POST['mail'])) echo htmlentities(trim($_POST['mail']))?>"/><br>
-			<br><br>
-			<?php
-			if (isset($log))
-				echo '<div class="message">' . $log . '</div><br><br>';
-			?>
-			<input class="bouton" type="submit" name="register" value="Register" />
-			<br><br>
-			<input class="bouton" type="submit" name="home" value="Home" />
-		</div>
-		</form>
+			<div class="jumbotron row centered shadow rounded">
+				<form action="register.php" method="post">
+	 				<span class="label"> Login     </span>
+	 				<input class="champ" type="text" name="login" maxlength="20" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"/><br>
+	 				<br>
+					<span class="label">Password </span>
+					<input class="champ" type="password" name="password" maxlength="20" value="<?php if (isset($_POST['password'])) echo htmlentities(trim($_POST['password']))?>"/><br>
+					<br>
+					<span class="label">Confirm   </span>
+					<input class="champ" type="password" name="password_c" maxlength="20" value="<?php if (isset($_POST['password_c'])) echo htmlentities(trim($_POST['password_c']))?>"/><br><br>
+					<span class="label">Mail         </span>
+					<input class="champ" type="text" name="mail" maxlength="50" value="<?php if (isset($_POST['mail'])) echo htmlentities(trim($_POST['mail']))?>"/><br>
+					<br><br>
+					<?php
+					if (isset($log))
+						echo '<div class="message">' . $log . '</div><br><br>';
+					?>
+					<input class="bouton" type="submit" name="register" value="Register" />
+					<br><br>
+					<input class="bouton" type="submit" name="home" value="Home" />
+				</form>
+			</div>
 		</div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 	</body>

@@ -8,26 +8,29 @@ if (!empty($_SESSION['login'])){
 }
 if (isset($_POST['submit']) && $_POST['submit'] == 'Submit'){
 	if (isset($_POST['mail']) && !empty($_POST['mail'])){
-		$mail = htmlentities($_POST['mail']);
-		$user = user::findByMail($mail);
-		//Si l'utilisateur n'existe pas
-		if($user==false){
-			$log = "This user does not exist.<br>";
-		}
-		else{
-			//Tout va bien
-			try{$user->sendmail();}
-			catch (Exception $e){
-			die('Error : ' . $e->getMessage());}
-			$log = 'E-mail sent ! <br>';
-			$log .= 'redirecting... <br>';
-			//On le redirige vers l'accueil
+		if (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}.[a-z]{2,4}$#", $_POST['mail'])){
+			$log = 'invalid mail address.<br>';
+		}else{
+			$mail = htmlentities($_POST['mail']);
+			$user = user::findByMail($mail);
+			//Si l'utilisateur n'existe pas
+			if($user==false){
+				$log = "This user does not exist.<br>";
+			}else{
+				//Tout va bien
+				try{$user->sendmail();}
+				catch (Exception $e){
+				die('Error : ' . $e->getMessage());}
+				$log = 'E-mail sent ! <br>';
+				$log .= 'redirecting... <br>';
+				//On le redirige vers l'accueil
 
-			$_SESSION['login'] = $_POST['login'];
-			header("Refresh: 3; url=connect.php");
+				$_SESSION['login'] = $_POST['login'];
+				header("Refresh: 3; url=connect.php");
+			}
 		}
 	}else{
-		$log = 'Empty mail.<br>';
+		$log = 'Mail is empty.<br>';
 	}
 }else if(isset($_POST['home']) && $_POST['home'] == 'Home') {
 	header("Location: index.php");
@@ -49,20 +52,21 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Submit'){
     <h1 class="big-title centered"><?php echo $name ?></h1>
 
 		<div class="formulaire">
-		<form action="password.php" method="post">
-		<div class="center">
-			<span class="label">Mail</span>
-			<input class="champ" type="text" name="mail" maxlength="50" value="<?php if (isset($_POST['mail'])) echo htmlentities(trim($_POST['mail']))?>"/><br>
-			<br><br>
-			<?php
-			if (isset($log))
-				echo '<div class="message">' . $log . '</div><br><br>';
-			?>
-			<input class="bouton" type="submit" name="submit" value="Submit" />
-			<br><br>
-			<input class="bouton" type="submit" name="home" value="Home" />
+			<div class="jumbotron row centered shadow rounded">
+				<form action="password.php" method="post">
+					<span class="label">Mail         </span>
+					<input class="champ" type="text" name="mail" maxlength="50" value="<?php if (isset($_POST['mail'])) echo htmlentities(trim($_POST['mail']))?>"/><br>
+					<br><br>
+					<?php
+					if (isset($log))
+						echo '<div class="message">' . $log . '</div><br><br>';
+					?>
+					<input class="bouton" type="submit" name="submit" value="Submit" />
+					<br><br>
+					<input class="bouton" type="submit" name="home" value="Home" />
+				</form>
+			</div>
 		</div>
-		</form>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 	</body>
 </html>
