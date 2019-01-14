@@ -20,26 +20,30 @@ include_once "user.php";
     <!-- title -->
     <h1 class="big-title centered"><?php echo $name ?></h1>
 
-	<div class="formulaire">
-		<a>Welcome <?php echo $_SESSION['login']; ?> !</a><br>
-		<br><br>
-		<a class="bouton" href="index.php">Home</a>
-		<br><br>
-		<a class="bouton" href="disconnect.php">Disconnect</a>
-	<?php
-	if (isset($log))
-		echo '<div class="message">'.$log.'</div>';
-	?>
-	
+    <div class="container">
+      <h3 class="centered">Welcome <?php echo $_SESSION['login']; ?> !</h3>
+      <br>
+      <div class="jumbotron row centered shadow rounded">
+        <div class="col">
+          <a class="bouton" href="index.php">Home</a>
+        </div>
+        <div class="col">
+          <a class="bouton" href="changepassword.php">Change password</a>
+        </div>
+        <div class="col">
+          <a class="bouton" href="disconnect.php">Disconnect</a>
+        </div>
+      </div>
+    </div>
 
-	<div id="panel">
+	<!--<div id="panel">
 		<?php
-			$current_user = User::findByLogin($_SESSION['login']);
+			// $current_user = User::findByLogin($_SESSION['login']);
 			// $admin = $current_user->getAttr("chmod");
 			// if($admin==1){
 			// }
 			// echo '<a href="admin.php?a=supp">Delete his account</a>';
 		?>
-	</div>
+	</div>-->
 	</body>
 </html>

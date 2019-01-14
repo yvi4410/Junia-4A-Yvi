@@ -10,18 +10,18 @@ if (isset($_POST['log']) && $_POST['log'] == 'Log in'){
 	if (isset($_POST['login']) && !empty($_POST['login'])
 		&& (isset($_POST['pass']) && !empty($_POST['pass']))){
 		$login = htmlentities($_POST['login']);
-		$user = user::findByLogin($login);
+		$user = User::findByLogin($login);
 		//Si l'utilisateur n'existe pas
 		if($user==false){
 			$log = "This user does not exist.<br>";
 		}else{
-			$mdp = $user->getAttr("password");
+			$pw = $user->getAttr("password");
 			$salt = $user->getAttr("login");
-			if($mdp != sha1(sha1($_POST['pass']).$salt)){
+			if($pw != sha1(sha1($_POST['pass']).$salt)){
 				$log = 'Wrong password.<br>';
 			}else{
 				//Sinon tout est bon, on le connecte et on le redirige vers l'accueil
-				$log = 'Connecting.<br>';
+				$log = 'Connecting...<br>';
 				$_SESSION['login'] = $_POST['login'];
 				header("Refresh: 1; url=index.php");
 			}

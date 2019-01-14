@@ -12,32 +12,38 @@ if ($isconnected == 0){
 	if (isset($_GET["token"]) && preg_match('/^[0-9A-F]{40}$/i', $_GET["token"])) {
 	    $token = $_GET["token"];
 	    $userid = $_GET["userid"];
-	}
-	else {
+	}else {
 	    header('Location: nowhere.php');
 	}
 
 	// verify token
-	$user = user::verifyToken($userid, $chmod);
+	$islegit = User::verifyToken($userid, $token);
 		//Si l'utilisateur n'existe pas
-	if($user==true){
+	if($islegit==true){
 
 		if (isset($_POST['submit']) && $_POST['submit'] == 'Submit'){
 			if( (isset($_POST['password']) && !empty($_POST['password']))
 			&& (isset($_POST['password_c']) && !empty($_POST['password_c']))){
 
-		//Les mots de passe
-		if($_POST['password'] != $_POST['password_c']){
-			$log = '<both words are not equivalent.<br>'; // recupérer post password
-		}else{
-			user::changePassword($userid, $password);
-			$log = 'Your password has been changed. <br>';
-			$log .= 'Connecting... <br>';
-			//On le redirige vers l'accueil
+				//Les mots de passe
+				if($_POST['password'] != $_POST['password_c']){
+					$log = '<both words are not equivalent.<br>';
+				}else{
+					$password = $_POST['password'];
+					$newpassword = User::changePassword($userid, $password);
+					if($newpassword!=false){
+						$user = User::findById($userid);
+						$login = $user->getAttr("login");
+						$log = 'Your password has been changed. <br>';
+						$log .= 'Connecting... <br>';
+						//On le redirige vers l'espace membre
 
-			$_SESSION['login'] = $_POST['login'];
-			header("Refresh: 3; url=member.php");
-		}
+						$_SESSION['login'] = $login;
+						header("Refresh: 3; url=member.php");
+					}else{
+						$log = 'Password update failed.<br>';
+					}
+				}
 			}
 
 		}else{
@@ -52,18 +58,18 @@ if ($isconnected == 0){
 			if( (isset($_POST['password']) && !empty($_POST['password']))
 			&& (isset($_POST['password_c']) && !empty($_POST['password_c']))){
 
-		//Les mots de passe
-		if($_POST['password'] != $_POST['password_c']){
-			$log = '<both words are not equivalent.<br>';
-		}else{
-			user::changePassword($_SESSION['userid'], $password); // voir userid   (session vaut login etc)
-			$log = 'Your password has been changed. <br>';
-			$log .= 'Connecting... <br>';
-			//On le redirige vers l'accueil
+				//Les mots de passe
+				if($_POST['password'] != $_POST['password_c']){
+					$log = '<both words are not equivalent.<br>';
+				}else{
+					User::changePassword($userid, $password); // voir userid   (session vaut login etc)
 
-			$_SESSION['login'] = $_POST['login'];
-			header("Refresh: 3; url=member.php");
-		}
+					$log = 'Your password has been changed. <br>';
+					$log .= 'Redirecting... <br>';
+					//On le redirige vers l'accueil
+
+					header("Refresh: 3; url=member.php");
+				}
 			}
 
 		}else{
@@ -71,10 +77,9 @@ if ($isconnected == 0){
 		}	
 
 
-		}
+}
 
 ?>
-
 
 <!-- Code html du formulaire-->
 <html>

@@ -12,13 +12,13 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Submit'){
 			$log = 'invalid mail address.<br>';
 		}else{
 			$mail = htmlentities($_POST['mail']);
-			$user = user::findByMail($mail);
+			$user = User::findByMail($mail);
 			//Si l'utilisateur n'existe pas
 			if($user==false){
 				$log = "This user does not exist.<br>";
 			}else{
 				//Tout va bien
-				$user = user::sendMail($userid, $mail);
+				$user = User::sendMail($userid, $mail);
 				$log = 'E-mail sent ! <br>';
 				$log .= 'redirecting... <br>';
 				//On le redirige vers l'accueil

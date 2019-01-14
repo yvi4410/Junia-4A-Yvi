@@ -23,6 +23,7 @@ class User{
 		$emess = __CLASS__ . ": unknown member $attr_name (getAttr)";
 		throw new Exception($emess, 45);
 	}
+
 	public function setAttr($attr_name, $attr_val){
 		if(property_exists(__CLASS__, $attr_name)){
 			$this->$attr_name=$attr_val;
@@ -31,6 +32,7 @@ class User{
 		$emess = __CLASS__ . ": unknown member $attr_name (setAttr)";
 		throw new Exception($emess, 45);
 	}
+
 	public function update(){
 		if(!isset($this->userid)){
 			throw new Exception(__CLASS__ . ":Primary key not defined, cant update");
@@ -48,6 +50,7 @@ class User{
 		$query->bindParam (5, $this->userid, PDO::PARAM_STR);
 		return $query->execute();
 	}
+
 	public function delete(){
 		$nb = 0;
 		if(isset($this->userid)){
@@ -57,6 +60,7 @@ class User{
 		}
 		return $nb;
 	}
+
 	public function insert(){
 		$nb = 0;
 		$salt = $this->login;
@@ -77,7 +81,7 @@ class User{
 		$dbres->bindParam(':token', $token);
 		$dbres->bindParam(':mail', $mail);
 		$dbres->execute();
-		$link = "http://localhost/Projet/changepassword.php?token=:token&userid=:userid"
+		$link = 'http://localhost/Projet/changepassword.php?token=:token&userid=:userid';
 		$link->bindParam(':token', $token);
 		$link->bindParam(':userid', $userid);
 		$to = "$this->mail"; //connect with pdo to retrieve user email
@@ -100,9 +104,9 @@ class User{
 			$dbres->execute();
 			$d = $dbres->fetch(PDO::FETCH_OBJ);
 			if($d == false) return false;
-			$token = $d->chmod);
-			if ($chmod == $token) return true;
-			return false;
+			$token = $d->chmod;
+			if ($chmod == $token){ return true;}
+			else{return false;}
 	}
 
 	public static function changePassword($userid, $password){
@@ -114,7 +118,6 @@ class User{
 		$dbres->execute();
 		return true;
 	}
-
 
 	public static function findAll(){
 		$query = "select * from users";
@@ -134,6 +137,7 @@ class User{
 		}
 		return $tab;
 	}
+
 	public static function findById($userid){
 		$c = Base::getConnection();
 		$query = 'select * from users where userid= :userid';
@@ -151,6 +155,7 @@ class User{
 		$user->setAttr("chmod", $d->chmod);
 		return $user;
 	}
+
 	public static function findByLogin($login) {
 		$c = Base::getConnection();
 		$query = 'select * from users where login= :login';
@@ -168,6 +173,7 @@ class User{
 		$user->setAttr("chmod", $d->chmod);
 		return $user;
 	}
+
 	public static function findByMail($mail) {
 		$c = Base::getConnection();
 		$query = 'select * from users where mail= :mail';
@@ -186,6 +192,7 @@ class User{
 		}
 		return $user;
 	}
+
 	public static function getNbUser(){
 		$query = "select count(*) as nb from users";
 		$c = Base::getConnection();
@@ -194,6 +201,7 @@ class User{
 		$nb = $data['nb'];
 		return $nb;
 	}
+
 	public static function estAdmin($login){
 		$current = self::findByLogin($login);
 		$admin = $current->getAttr("chmod");
@@ -201,5 +209,6 @@ class User{
 		else $res = false;
 		return $res;
 	}
+	
 }
 ?>
