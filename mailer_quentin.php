@@ -6,11 +6,8 @@ $message = "Salut fdp \r\n".
 			"\r\n".
 			"L'envoi de mail fonctionne".
 			"\r\n".
-			salut nique ta mère
-			
 			"Cordialement,\r\n".
 			"L'équipe Bet'eirb";
-			test
 $headers = "From: beteirb@enseirb-matmeca.fr" . "\r\n" .
 			//"Reply-To: qdeclercq@enseirb-matmeca.fr" .
 			"X-Mailer: PHP/" . phpversion();
