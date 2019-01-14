@@ -8,8 +8,11 @@
 	text-align: center;
 }
 
+.card{
+	margin-bottom: 30px;
+}
 .playcard{
-	height: 200px;
+	height: 175px;
 }
 
 .bloc {
@@ -22,6 +25,13 @@
 
 #bank-money, #user-money {
 	font-weight: bold;
+}
+#bank-level, #user-level{
+	font-size: 18px; color: white;line-height:2.5em;
+}
+
+#bank-circle, #user-circle {
+	background:green; border-radius:50%; border:1px solid; text-align:center; margin:auto;width: 50px;height: 50px;
 }
 
 .jumbotron {
