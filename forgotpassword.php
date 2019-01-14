@@ -18,9 +18,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Submit'){
 				$log = "This user does not exist.<br>";
 			}else{
 				//Tout va bien
-				try{$user->sendmail();}
-				catch (Exception $e){
-				die('Error : ' . $e->getMessage());}
+				$user = user::sendMail($userid, $mail);
 				$log = 'E-mail sent ! <br>';
 				$log .= 'redirecting... <br>';
 				//On le redirige vers l'accueil

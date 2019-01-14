@@ -1,22 +1,10 @@
 <?php
+$nb = 0;
+$token = sha1(random_int ( 0, 99999999999999999999));
 
-$token = sha1(uniqid($username, true));
-
-$query = $db->prepare(
-    "INSERT INTO pending_users (username, token, tstamp) VALUES (?, ?, ?)"
-);
-$query->execute(
-    array(
-        $username,
-        $token,
-        $_SERVER["REQUEST_TIME"]
-    )
-);
+$query = "UPDATE users SET chmod = '-1' WHERE mail = '".$this->mail."'"
 
 
-
-
-<?php
 // retrieve token
 if (isset($_GET["token"]) && preg_match('/^[0-9A-F]{40}$/i', $_GET["token"])) {
     $token = $_GET["token"];

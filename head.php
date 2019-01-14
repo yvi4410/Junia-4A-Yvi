@@ -5,7 +5,8 @@
       elseif ($page == "connect.php") {$name = 'Login';}
       elseif ($page == "register.php") {$name = 'Register';}
       elseif ($page == "member.php") {$name = 'Member space';}
-      elseif ($page == "password.php") {$name = 'Forgot password';}
+      elseif ($page == "forgotpassword.php") {$name = 'Forgot password';}
+      elseif ($page == "changepassword.php") {$name = 'Change password';}
 ?>
 
 

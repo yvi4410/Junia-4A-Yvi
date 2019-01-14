@@ -69,19 +69,53 @@ class User{
 	}
 
 
-	public function sendmail(){
-		$nb = 0;
+	public static function sendMail($userid, $mail){
+		$c = Base::getConnection();
+		$token = sha1(random_int ( 0, 99999999999999999999));
+		$query = 'UPDATE users SET chmod = :token WHERE mail = :mail';
+		$dbres = $c->prepare($query);
+		$dbres->bindParam(':token', $token);
+		$dbres->bindParam(':mail', $mail);
+		$dbres->execute();
+		$link = "http://localhost/Projet/changepassword.php?token=:token&userid=:userid"
+		$link->bindParam(':token', $token);
+		$link->bindParam(':userid', $userid);
 		$to = "$this->mail"; //connect with pdo to retrieve user email
 		$subject = "Your Password";
-		$message = "Hello, you forgot your password, here is a temporary password, use it to login. \r\n".
-					" You will need to change your password again. \r\n".
-					"LINK";
+		$message = "Hello, you forgot your password, so here is a temporary link to change your password : \r\n".
+					":link \r\n";
+		$message->bindParam(':link', $link);
 		$headers = "From: beteirb@enseirb-matmeca.fr" . "\r\n" .
 					"X-Mailer: PHP/" . phpversion();
 
-		mail($to, $subject, $message, $headers);
-		return $nb;
+		$send->mail($to, $subject, $message, $headers);
+		return $send;
 	}
+
+	public static function verifyToken($userid, $chmod){
+			$c = Base::getConnection();
+			$query = 'SELECT userid, chmod FROM users WHERE userid = :userid';
+			$dbres = $c->prepare($query);
+			$dbres->bindParam(':userid', $userid);
+			$dbres->execute();
+			$d = $dbres->fetch(PDO::FETCH_OBJ);
+			if($d == false) return false;
+			$token = $d->chmod);
+			if ($chmod == $token) return true;
+			return false;
+	}
+
+	public static function changePassword($userid, $password){
+		$c = Base::getConnection();
+		$query = 'UPDATE users SET :password =  WHERE userid = :userid';
+		$dbres = $c->prepare($query);
+		$dbres->bindParam(':userid', $userid);
+		$dbres->bindParam(':password', $password);
+		$dbres->execute();
+		return true;
+	}
+
+
 	public static function findAll(){
 		$query = "select * from users";
 		$c = Base::getConnection();

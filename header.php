@@ -18,13 +18,13 @@
       //Si le membre est connecté on affiche le menu-connection
       if (!empty($_SESSION['login'])){ ?>
       <li <?php echo htmlentities(trim($_SESSION['login']));
-                if($page == "member.php") echo 'class="active"'; ?>><a href="member.php">Member space</a></li>
+                if($page == "member.php" || $page == "changepassword.php") echo 'class="active"'; ?>><a href="member.php">Member space</a></li>
       <?php }?>
        
       <?php
       //Si le membre n'est pas connecté on affiche le menu-deconnecter
       if(empty($_SESSION['login'])){ ?>
-      <li <?php {if($page == "connect.php" || $page == "register.php" || $page == "password.php") echo 'class="active"';} ?>><a href="connect.php">Login</a></li>
+      <li <?php {if($page == "connect.php" || $page == "register.php" || $page == "forgotpassword.php" || $page == "changepassword.php") echo 'class="active"';} ?>><a href="connect.php">Login</a></li>
       <?php } ?>
 
       <!-- <li <?php # if($page == "member.php") echo 'class="active"' ?>><a href="membre.php">Member space</a></li> -->
