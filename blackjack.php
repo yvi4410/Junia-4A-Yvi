@@ -65,7 +65,7 @@
 		</div>
 	  </div>
         <div class="centered vertical-margin">
-          <p class="centered"><button type="button" id="button-draw-cards" class="btn btn-secondary">Draw cards!</button></p>
+          <p class="centered"><button type="button" id="button-draw-cards" class="btn btn-secondary" style="display:none">Draw cards!</button></p>
           <div>
             <button type="button" id="button-hit" class="btn btn-secondary col-md-2" style="display: none;">Hit</button>
             <button type="button" id="button-stand" class="btn btn-secondary col-md-2" style="display: none;">Stand</button>

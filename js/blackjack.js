@@ -238,11 +238,11 @@ function throwResult() {
 
   if (userLevel > 21) {
     $("#result").html("You're over 21, you lost!");
-	$("#user-circle").attr("style","background:red");
+	$("#user-circle").css("backgroundColor", "red");
     bankGetTheMoney();
   } else if (bankLevel > 21) {
     $("#result").html("The bank is over 21, you won!");
-	$("#bank-circle").attr("style","background:red");
+	$("#bank-circle").css("backgroundColor", "red");
     userGetTheMoney();
   } else if (bankLevel === userLevel) {
     $("#result").html("It's a tie!");
@@ -285,8 +285,8 @@ function userGetTheMoney() {
   var moneyBank = Number($("#bank-money").html());
   var userBank = Number($("#user-money").html());
   var currentBet = Number($("#amountBet").val());
-  $("#bank-money").html(moneyBank - 1.5 * currentBet);
-  $("#user-money").html(userBank + 1.5 * currentBet);
+  $("#bank-money").html(moneyBank - currentBet);
+  $("#user-money").html(userBank + currentBet);
   $("#result").css("color", "green");
 }
 
@@ -298,6 +298,8 @@ function startNewGame() {
   $("#button-double").hide();
   $("#button-draw-cards").hide();
   $("#game").hide();
+  $("#user-circle").css("backgroundColor", "green");
+  $("#bank-circle").css("backgroundColor", "green");
   let noCardsText = $(".no-cards");
   for (let i = 0; i < noCardsText.length; i++) {
     noCardsText[i].style.display = "inline";
