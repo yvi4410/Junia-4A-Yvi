@@ -63,10 +63,12 @@ class User{
 
 	public function insert(){
 		$nb = 0;
-		$salt = $this->login;
-		$this->setAttr("chmod", 0);
-		$query = "INSERT INTO users VALUES(null, '".$this->login."','".sha1(sha1($this->password).$salt)."', '".$this->mail."', '".$this->chmod."')";
 		$c = Base::getConnection();
+		$query = "SELECT max(userid) FROM users";
+		$id = $c->exec($query) + 1;
+		$salt = $id;
+		$this->setAttr("chmod", 0);
+		$query = "INSERT INTO users VALUES(".$id.", '".$this->login."','".sha1(sha1($this->password).$salt)."', '".$this->mail."', '".$this->chmod."')";
 		$nb = $c->exec($query);
 		$this->setAttr("userid", $c->LastInsertId());
 		return $nb;
@@ -110,8 +112,10 @@ class User{
 	}
 
 	public static function changePassword($userid, $password){
+		$salt = $userid;
+		$password = sha1(sha1($password).$salt);
 		$c = Base::getConnection();
-		$query = 'UPDATE users SET :password =  WHERE userid = :userid';
+		$query = 'UPDATE users SET password = :password WHERE userid = :userid';
 		$dbres = $c->prepare($query);
 		$dbres->bindParam(':userid', $userid);
 		$dbres->bindParam(':password', $password);

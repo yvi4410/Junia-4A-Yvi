@@ -51,10 +51,9 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Submit'){
 
 		<div class="formulaire">
 			<div class="jumbotron row centered shadow rounded">
-				<form action="password.php" method="post">
+				<form action="forgotpassword.php" method="post">
 					<span class="label">Mail         </span>
-					<input class="champ" type="text" name="mail" maxlength="50" value="<?php if (isset($_POST['mail'])) echo htmlentities(trim($_POST['mail']))?>"/><br>
-					<br><br>
+					<input class="champ" type="text" name="mail" maxlength="50" value="<?php if (isset($_POST['mail'])) echo htmlentities(trim($_POST['mail']))?>"/><br><br>
 					<?php
 					if (isset($log))
 						echo '<div class="message">' . $log . '</div><br><br>';

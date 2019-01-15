@@ -4,7 +4,7 @@ session_start();
 //Si l'utilisateur est déjà connecté on l'amène sur son espace membre
 if (!empty($_SESSION['login'])){
 	$log = 'You are already connected.<br>';
-	header("Refresh: 3, url=index.php");
+	header("Refresh: 1, url=index.php");
 }
 //Si tout est bon
 if (isset($_POST['register']) && $_POST['register'] == 'Register'){
@@ -44,7 +44,7 @@ if (isset($_POST['register']) && $_POST['register'] == 'Register'){
 				//On le redirige vers l'accueil
 
 				$_SESSION['login'] = $_POST['login'];
-				header("Refresh: 3; url=index.php");
+				header("Refresh: 2; url=index.php");
 			}
 		}
 	}else{

@@ -3,7 +3,7 @@ include_once "user.php";
 session_start();
 if (!empty($_SESSION['login'])){
 	$log = 'You are already connected.<br>';
-	header("Refresh: 2, url=index.php");
+	header("Refresh: 1, url=index.php");
 }
 //Si on a bien envoyé le formulaire et que tout est rempli
 if (isset($_POST['log']) && $_POST['log'] == 'Log in'){
@@ -16,7 +16,7 @@ if (isset($_POST['log']) && $_POST['log'] == 'Log in'){
 			$log = "This user does not exist.<br>";
 		}else{
 			$pw = $user->getAttr("password");
-			$salt = $user->getAttr("login");
+			$salt = $user->getAttr("userid");
 			if($pw != sha1(sha1($_POST['pass']).$salt)){
 				$log = 'Wrong password.<br>';
 			}else{
@@ -34,7 +34,7 @@ if (isset($_POST['log']) && $_POST['log'] == 'Log in'){
 }else if(isset($_POST['register']) && $_POST['register'] == 'Not registered ?') {
 	header("Location: register.php");
 }else if(isset($_POST['password']) && $_POST['password'] == 'Forgot password ?') {
-	header("Location: password.php");
+	header("Location: forgotpassword.php");
 }
 ?>
 

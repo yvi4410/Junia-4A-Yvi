@@ -39,15 +39,15 @@ if ($isconnected == 0){
 						//On le redirige vers l'espace membre
 
 						$_SESSION['login'] = $login;
-						header("Refresh: 3; url=member.php");
+						header("Refresh: 2; url=member.php");
 					}else{
 						$log = 'Password update failed.<br>';
 					}
 				}
-			}
 
-		}else{
-			$log = 'At least one space is empty.<br>';
+			}else{
+				$log = 'At least one space is empty.<br>';
+			}
 		}
 
 	}else {
@@ -62,18 +62,26 @@ if ($isconnected == 0){
 				if($_POST['password'] != $_POST['password_c']){
 					$log = '<both words are not equivalent.<br>';
 				}else{
-					User::changePassword($userid, $password); // voir userid   (session vaut login etc)
+					$password = $_POST['password'];
+					$login = htmlentities($_SESSION['login']);
+					$user = User::findByLogin($login);
+					$userid = $user->getAttr("userid");
+					$newpassword = User::changePassword($userid, $password);
+					if($newpassword!=false){
 
-					$log = 'Your password has been changed. <br>';
-					$log .= 'Redirecting... <br>';
-					//On le redirige vers l'accueil
+						$log = 'Your password has been changed. <br>';
+						$log .= 'Redirecting... <br>';
+						//On le redirige vers l'accueil
 
-					header("Refresh: 3; url=member.php");
+						header("Refresh: 2; url=member.php");
+					}else{
+						$log = 'Password update failed.<br>';
+					}
 				}
-			}
 
-		}else{
-			$log = 'At least one space is empty.<br>';
+			}else{
+				$log = 'At least one space is empty.<br>';
+			}
 		}	
 
 
@@ -90,7 +98,7 @@ if ($isconnected == 0){
   <body>
 
     <?php include ('header.php') ?>
-    <!-- title -->v
+    <!-- title -->
     <h1 class="big-title centered"><?php echo $name ?></h1>
 
 		<div class="formulaire">
@@ -100,8 +108,8 @@ if ($isconnected == 0){
 					<input class="champ" type="password" name="password" maxlength="20" value="<?php if (isset($_POST['password'])) echo htmlentities(trim($_POST['password']))?>"/><br>
 					<br>
 					<span class="label">Confirm   </span>
-					<input class="champ" type="password" name="password_c" maxlength="20" value="<?php if (isset($_POST['password_c'])) echo htmlentities(trim($_POST['password_c']))?>"/><br><br>
-					<br><br>
+					<input class="champ" type="password" name="password_c" maxlength="20" value="<?php if (isset($_POST['password_c'])) echo htmlentities(trim($_POST['password_c']))?>"/><br>
+					<br>
 					<?php
 					if (isset($log))
 						echo '<div class="message">' . $log . '</div><br><br>';
