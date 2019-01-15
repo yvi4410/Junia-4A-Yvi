@@ -13,6 +13,8 @@ if ($isconnected == 0){
 	    $token = $_GET["token"];
 	    $userid = $_GET["userid"];
 	}else {
+		echo 'die';
+		die;
 	    header('Location: nowhere.php');
 	}
 
@@ -39,6 +41,7 @@ if ($isconnected == 0){
 						//On le redirige vers l'espace membre
 
 						$_SESSION['login'] = $login;
+						$raz = User::raZ($userid);
 						header("Refresh: 2; url=member.php");
 					}else{
 						$log = 'Password update failed.<br>';
@@ -103,7 +106,7 @@ if ($isconnected == 0){
 
 		<div class="formulaire">
 			<div class="jumbotron row centered shadow rounded">
-				<form action="changepassword.php" method="post">
+				<form action= <?php if ($isconnected == 1){echo '"changepassword.php"';} else{echo '"changepassword.php?token='.$token.'&userid='.$userid.'"';} ?> method="post">
 					<span class="label">Password </span>
 					<input class="champ" type="password" name="password" maxlength="20" value="<?php if (isset($_POST['password'])) echo htmlentities(trim($_POST['password']))?>"/><br>
 					<br>

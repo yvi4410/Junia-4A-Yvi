@@ -65,7 +65,9 @@ class User{
 		$nb = 0;
 		$c = Base::getConnection();
 		$query = "SELECT max(userid) FROM users";
-		$id = $c->exec($query) + 1;
+		$data = $c->query($query);
+		$data = $data->fetch();
+		$id = $data['max(userid)'] + 1;
 		$salt = $id;
 		$this->setAttr("chmod", 0);
 		$query = "INSERT INTO users VALUES(".$id.", '".$this->login."','".sha1(sha1($this->password).$salt)."', '".$this->mail."', '".$this->chmod."')";
@@ -77,38 +79,37 @@ class User{
 
 	public static function sendMail($userid, $mail){
 		$c = Base::getConnection();
-		$token = sha1(random_int ( 0, 99999999999999999999));
+		$token = sha1(random_int(0, 9999999999));
 		$query = 'UPDATE users SET chmod = :token WHERE mail = :mail';
 		$dbres = $c->prepare($query);
 		$dbres->bindParam(':token', $token);
 		$dbres->bindParam(':mail', $mail);
 		$dbres->execute();
-		$link = 'http://localhost/Projet/changepassword.php?token=:token&userid=:userid';
-		$link->bindParam(':token', $token);
-		$link->bindParam(':userid', $userid);
-		$to = "$this->mail"; //connect with pdo to retrieve user email
+		$link = "http://localhost/Projet/changepassword.php?token=".$token."&userid=".$userid;
+		$to = $mail; //connect with pdo to retrieve user email
 		$subject = "Your Password";
-		$message = "Hello, you forgot your password, so here is a temporary link to change your password : \r\n".
-					":link \r\n";
-		$message->bindParam(':link', $link);
+		$message = "Hello, you forgot your password, so here is a temporary link to change your password : \r\n".$link." \r\n";
 		$headers = "From: beteirb@enseirb-matmeca.fr" . "\r\n" .
 					"X-Mailer: PHP/" . phpversion();
 
-		$send->mail($to, $subject, $message, $headers);
-		return $send;
+		//$send->mail($to, $subject, $message, $headers);
+		//return $send;
+		return $link;
 	}
 
 	public static function verifyToken($userid, $chmod){
-			$c = Base::getConnection();
-			$query = 'SELECT userid, chmod FROM users WHERE userid = :userid';
-			$dbres = $c->prepare($query);
-			$dbres->bindParam(':userid', $userid);
-			$dbres->execute();
-			$d = $dbres->fetch(PDO::FETCH_OBJ);
-			if($d == false) return false;
-			$token = $d->chmod;
-			if ($chmod == $token){ return true;}
-			else{return false;}
+		$c = Base::getConnection();
+		$query = 'SELECT userid, chmod FROM users WHERE userid = :userid';
+		$dbres = $c->prepare($query);
+		$dbres->bindParam(':userid', $userid);
+		$dbres->execute();
+		$d = $dbres->fetch(PDO::FETCH_OBJ);
+		if($d == false) return false;
+		$token = $d->chmod;
+		if ($chmod == $token){ 
+			return true;
+		}
+		else{return false;}
 	}
 
 	public static function changePassword($userid, $password){
@@ -120,6 +121,13 @@ class User{
 		$dbres->bindParam(':userid', $userid);
 		$dbres->bindParam(':password', $password);
 		$dbres->execute();
+		return true;
+	}
+
+	public static function raZ($userid){
+		$c = Base::getConnection();
+		$query = "UPDATE users SET chmod = '0' WHERE userid = '".$userid."'";
+		$raz = $c->exec($query);
 		return true;
 	}
 

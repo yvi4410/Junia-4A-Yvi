@@ -13,22 +13,28 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Submit'){
 		}else{
 			$mail = htmlentities($_POST['mail']);
 			$user = User::findByMail($mail);
+			$userid = $user->getAttr("userid");
 			//Si l'utilisateur n'existe pas
 			if($user==false){
 				$log = "This user does not exist.<br>";
 			}else{
 				//Tout va bien
-				$user = User::sendMail($userid, $mail);
-				$log = 'E-mail sent ! <br>';
-				$log .= 'redirecting... <br>';
-				//On le redirige vers l'accueil
+				$link = User::sendMail($userid, $mail); // test en local
+				//$issent = User::sendMail($userid, $mail);
+				//if($issent!=false){
+					$log = 'E-mail sent ! <br>';
+					$log .= '<a href="'.$link.'">'.$link.'</a> <br>'; // test en local
+					$log .= 'redirecting... <br>';
+					//On le redirige vers l'accueil
 
-				$_SESSION['login'] = $_POST['login'];
-				header("Refresh: 3; url=connect.php");
+					header("Refresh: 20; url=connect.php");
+				//}else{
+				//	$log = 'Password update failed.<br>';
+				//}
 			}
 		}
 	}else{
-		$log = 'Mail is empty.<br>';
+	$log = 'Mail is empty.<br>';
 	}
 }else if(isset($_POST['home']) && $_POST['home'] == 'Home') {
 	header("Location: index.php");
