@@ -17,7 +17,7 @@
       <?php
       //Si le membre est connecté on affiche le menu-connection
       if (!empty($_SESSION['login'])){ ?>
-      <li <?php if($page == "member.php" || $page == "changepassword.php" || $page == "nowhere.php") echo 'class="active"'; ?>><a href="member.php">Member space</a></li>
+      <li <?php if($page == "member.php" || $page == "changepassword.php" || $page == "confirmdelete.php" || $page == "nowhere.php") echo 'class="active"'; ?>><a href="member.php">Member space</a></li>
       <?php }?>
        
       <?php
@@ -26,7 +26,6 @@
       <li <?php {if($page == "connect.php" || $page == "register.php" || $page == "forgotpassword.php" || $page == "changepassword.php") echo 'class="active"';} ?>><a href="connect.php">Login</a></li>
       <?php } ?>
 
-      <!-- <li <?php # if($page == "member.php") echo 'class="active"' ?>><a href="membre.php">Member space</a></li> -->
     </ul>
   </div>
 </header>

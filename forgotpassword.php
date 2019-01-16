@@ -19,18 +19,18 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Submit'){
 				$log = "This user does not exist.<br>";
 			}else{
 				//Tout va bien
-				//$link = User::sendMail($userid, $mail); // test en local
-				$issent = User::sendMail($userid, $mail); // test en vrai
-				if($issent!=false){ // test en vrai
+				$link = User::sendMail($userid, $mail); // test en local
+				//$issent = User::sendMail($userid, $mail); // test en vrai
+				//if($issent!=false){ // test en vrai
 					$log = 'E-mail sent ! <br>';
 					$log .= '<a href="'.$link.'">'.$link.'</a> <br>'; // test en local
 					$log .= 'redirecting... <br>';
 					//On le redirige vers l'accueil
 
 					header("Refresh: 2; url=connect.php");
-				}else{
-					$log = 'Password update failed.<br>'; // test en vrai
-				}
+				//}else{
+				//	$log = 'Password update failed.<br>'; // test en vrai
+				//}
 			}
 		}
 	}else{

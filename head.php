@@ -7,6 +7,7 @@
       elseif ($page == "member.php") {$name = 'Member space';}
       elseif ($page == "forgotpassword.php") {$name = 'Forgot password';}
       elseif ($page == "changepassword.php") {$name = 'Change password';}
+      elseif ($page == "confirmdelete.php") {$name = 'Confirm deleting';}
       elseif ($page == "nowhere.php") {$name = 'Erreur';}
 ?>
 

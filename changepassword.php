@@ -13,8 +13,6 @@ if ($isconnected == 0){
 	    $token = $_GET["token"];
 	    $userid = $_GET["userid"];
 	}else {
-		echo 'die';
-		die;
 	    header('Location: nowhere.php');
 	}
 

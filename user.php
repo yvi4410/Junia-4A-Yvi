@@ -54,7 +54,7 @@ class User{
 	public function delete(){
 		$nb = 0;
 		if(isset($this->userid)){
-			$query = "DELETE FROM users Where userid =" . $this->userid;
+			$query = "DELETE FROM users Where userid =".$this->userid;
 			$c = Base::getConnection();
 			$nb = $c->exec($query);
 		}
@@ -81,22 +81,23 @@ class User{
 		$c = Base::getConnection();
 		$token = sha1(random_int(0, 9999999999)); // test en local
 		//$token = sha1(rand(0, 9999999999)); //test en vrai
-		$query = 'UPDATE users SET chmod = :token WHERE mail = :mail';
+		$shatoken = sha1($token);
+		$query = 'UPDATE users SET chmod = :shatoken WHERE mail = :mail';
 		$dbres = $c->prepare($query);
-		$dbres->bindParam(':token', $token);
+		$dbres->bindParam(':shatoken', $shatoken);
 		$dbres->bindParam(':mail', $mail);
 		$dbres->execute();
-		//$link = "http://localhost/Projet/changepassword.php?token=".$token."&userid=".$userid; // test en local
-		$link = "https://qdeclercq.vvvpedago.enseirb-matmeca.fr/Projet/changepassword.php?token=".$token."&userid=".$userid; // test en vrai
+		$link = "http://localhost/Projet/changepassword.php?token=".$token."&userid=".$userid; // test en local
+		//$link = "https://qdeclercq.vvvpedago.enseirb-matmeca.fr/Projet/changepassword.php?token=".$token."&userid=".$userid; // test en vrai
 		$to = $mail; //connect with pdo to retrieve user email
 		$subject = "Your Password";
 		$message = "Hello, you forgot your password, so here is a temporary link to change your password : \r\n".$link." \r\n";
-		$headers = "From: beteirb@enseirb-matmeca.fr" . "\r\n" .
+		$headers = "From: croupieirb@enseirb-matmeca.fr" . "\r\n" .
 					"X-Mailer: PHP/" . phpversion();
 
-		$send->mail($to, $subject, $message, $headers); // test en vrai
-		return $send; // test en vrai
-		//return $link; // test en local
+		//$send->mail($to, $subject, $message, $headers); // test en vrai
+		//return $send; // test en vrai
+		return $link; // test en local
 	}
 
 	public static function verifyToken($userid, $chmod){
@@ -108,7 +109,7 @@ class User{
 		$d = $dbres->fetch(PDO::FETCH_OBJ);
 		if($d == false) return false;
 		$token = $d->chmod;
-		if ($chmod == $token){ 
+		if (sha1($chmod) == $token){ 
 			return true;
 		}
 		else{return false;}
@@ -216,12 +217,19 @@ class User{
 		return $nb;
 	}
 
-	public static function estAdmin($login){
+	public static function isAdmin($login){
 		$current = self::findByLogin($login);
 		$admin = $current->getAttr("chmod");
 		if($admin==1) $res = true;
 		else $res = false;
 		return $res;
+	}
+
+	public static function displayUsers(){
+		$query = "select * from users";
+		$c = Base::getConnection();
+		$dbres = $c->query($query);
+		return $dbres;
 	}
 	
 }

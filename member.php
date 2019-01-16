@@ -7,6 +7,9 @@ if (!isset($_SESSION['login'])){
 }
 include_once "user.php";
 
+$admin = User::isAdmin($_SESSION['login']);
+
+
 ?>
 
 <html>
@@ -21,7 +24,7 @@ include_once "user.php";
     <h1 class="big-title centered"><?php echo $name ?></h1>
 
     <div class="container">
-      <h3 class="centered">Welcome <?php echo $_SESSION['login']; ?> !</h3>
+      <h3 class="centered">Welcome <?php if ($admin == true){echo 'Admin '.$_SESSION['login'];} else{echo $_SESSION['login'];} ?> !</h3>
       <br>
       <div class="jumbotron row centered shadow rounded">
         <div class="col">
@@ -36,14 +39,7 @@ include_once "user.php";
       </div>
     </div>
 
-	<!--<div id="panel">
-		<?php
-			// $current_user = User::findByLogin($_SESSION['login']);
-			// $admin = $current_user->getAttr("chmod");
-			// if($admin==1){
-			// }
-			// echo '<a href="admin.php?a=supp">Delete his account</a>';
-		?>
-	</div>-->
-	</body>
+    <br><br><br><br>
+    <?php if ($admin==true) include ('admin.php') ?>
+  </body>
 </html>
