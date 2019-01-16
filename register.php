@@ -4,7 +4,7 @@ session_start();
 //Si l'utilisateur est déjà connecté on l'amène sur son espace membre
 if (!empty($_SESSION['login'])){
 	$log = 'You are already connected.<br>';
-	header("Refresh: 1, url=index.php");
+	header("Refresh: 1, url=member.php");
 }
 //Si tout est bon
 if (isset($_POST['register']) && $_POST['register'] == 'Register'){
