@@ -11,7 +11,6 @@ if ($admin!=true){
 
 ?>
 
-
 <h3 class="centered">Users table</h3>
 	<div class="jumbotron row centered shadow rounded">
 		<table>

@@ -7,9 +7,10 @@ include_once 'base.php';
 
 
 <html>
-  <?php $page = basename(__FILE__);
-        $name = '';
-        include ('head.php');
+  <?php 
+    $page = basename(__FILE__);
+    $name = '';
+    include ('head.php');
   ?>
   <body>
 

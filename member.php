@@ -9,13 +9,13 @@ include_once "user.php";
 
 $admin = User::isAdmin($_SESSION['login']);
 
-
 ?>
 
 <html>
-  <?php $page = basename(__FILE__);
-        $name = '';
-        include ('head.php');
+  <?php
+    $page = basename(__FILE__);
+    $name = '';
+    include ('head.php');
   ?>
   <body>
 

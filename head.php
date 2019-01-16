@@ -1,4 +1,4 @@
-<?php if ($page == "index.php") { $name = 'Home';}
+<?php if ($page == "index.php") { $name = "Croupi'eirb";}
       elseif ($page == "blackjack.php") {$name = 'Blackjack';}
       elseif ($page == "poker.php") {$name = 'Poker';}
       elseif ($page == "about.php") {$name = 'About';}

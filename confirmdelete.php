@@ -39,7 +39,6 @@ if(isset($_POST['yes']) && $_POST['yes'] == 'Yes') {
 
 ?>
 
-
 <html>
   <?php $page = basename(__FILE__);
         $name = '';

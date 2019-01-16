@@ -1,10 +1,21 @@
 <!DOCTYPE html>
+
+<?php
+session_start();
+//Si un utilisateur non connecté essaye d'accéder à cette partie
+//on le redirige immédiatemment vers la page de connexion
+if (!isset($_SESSION['login'])){
+  header('Location: connect.php');
+}
+?>
+
 <html>
   <?php 
-  session_start();
-  $page = basename(__FILE__);
-  $name = '';
-  include ('head.php');
+    $page = basename(__FILE__);
+    $name = '';
+    include ('head.php');
+
+
   ?>
   <body>
 
