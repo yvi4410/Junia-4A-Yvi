@@ -10,8 +10,7 @@ if (!isset($_SESSION['login'])){
 ?>
 
 <html>
-  <?php 
-  session_start();
+  <?php
   $page = basename(__FILE__);
   $name = '';
   include ('head.php');
