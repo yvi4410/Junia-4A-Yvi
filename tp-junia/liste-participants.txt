@@ -1,9 +1,7 @@
 Insérez vos noms ici :
 Rozenn Renaud
 Eloïse Le Blanc
-<<<<<<< HEAD
 Yvi Destombes AP4
 Anthony LOZANO
-=======
 Edouard Gaignerot 
->>>>>>> 9370069 (Ajout de mon nom à la liste des participants Edouard Gaignerot)
+Gaël Barré-Beylot
