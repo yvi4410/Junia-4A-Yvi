@@ -7,3 +7,4 @@ Edouard Gaignerot
 Gaël Barré-Beylot
 Gildas Fedevieille
 Theo BHT
+Romain DH
