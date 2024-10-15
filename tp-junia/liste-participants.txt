@@ -1,4 +1,18 @@
+<<<<<<< HEAD
 jeremie warconsin
 
 vincent
 Mathias MILHE-CASTEL
+<<<<<<< HEAD
+Khalou :) :) :) 
+=======
+<<<<<<< HEAD
+Khalou :) 
+Boutevillain Thibaut :3
+Jonathan ROY
+=======
+=======
+Clément Coiffier Abeille
+>>>>>>> ce9a517 (Modification du fichier liste-participants)
+>>>>>>> 78ef544 (ajout nom)
+>>>>>>> d3833518303b9a3682b9335d0234682b2bfbc936
