@@ -6,3 +6,6 @@ You can play Black-Jack already, and soon a Poker game will be implemented
 
 See you soon for updates
 The Croupi'eirb team
+
+
+fezrhrthgbvzqsd ezvghtrgfzedfezgzre
