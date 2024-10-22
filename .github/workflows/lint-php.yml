@@ -1,0 +1,30 @@
+name: PHP Lint Workflow
+
+# Cet événement déclenche le workflow lorsqu'un push est effectué sur la branche develop
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  lint:
+    name: Lint PHP Files
+    runs-on: self-hosted
+
+    steps:
+      # Étape 1 : Checker le code du dépôt
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Étape 2 : Installer PHP
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4' # tu peux ajuster la version selon ce que tu utilises
+
+      # Étape 3 : Lancer la commande de lint sur tous les fichiers PHP
+      - name: Run PHP lint
+        run: |
+          # Trouver tous les fichiers PHP et les vérifier avec `php -l`
+          find . -type f -name "*.php" -exec php -l {} \;
+        
