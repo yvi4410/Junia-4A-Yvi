@@ -1,0 +1,14 @@
+services:
+  nginx-junia:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nginx-junia
+    ports:
+      - "80:80"
+    volumes:
+      - /var/www/html:/var/www/html
+    depends_on:
+      - mysql-junia
+    networks:
+      - junia-network
