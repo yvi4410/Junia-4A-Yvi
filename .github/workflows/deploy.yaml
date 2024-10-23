@@ -1,0 +1,27 @@
+name: Deploy to Local Server
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy to Local Server via SSH
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Pull images and run containers
+        run: |
+          ssh -o StrictHostKeyChecking=no username@your-server-ip << 'EOF'
+            docker pull your_registry/my-site-image:latest
+            docker pull your_registry/mysql-junia:latest
+            docker-compose -f /path/to/your/docker-compose.yml up -d
+          EOF
